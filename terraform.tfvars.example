@@ -1,0 +1,13 @@
+project_name = "zero-trust-mvp"
+environemnt = "mvp"
+location = "East US
+location_short = "eastus
+vnet_address_space = ["10.0.0.0/16]
+
+common_tags = {
+    Project = "Zero-Trust-MVP"
+    Environment = "MVP"
+    Owner = "Jodi"
+    CreatedBy = "Terraform"
+}
+

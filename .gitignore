@@ -1,0 +1,44 @@
+# Terraform files
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfplan
+.terraform/
+.terraform.lock.hcl
+
+# SSH Keys (never commit these!)
+*.pem
+*.key
+id_rsa*
+id_ed25519*
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+terraform.env
+*.env
+.env*
+
+# Log files
+*.log
+
+# Credentials (never commit these!)
+*credentials*
+*secret*
+*password*
+
+# Azure CLI cache
+.azure/
+
+# SSH keys
+keys/
+*.key
+*.pub
