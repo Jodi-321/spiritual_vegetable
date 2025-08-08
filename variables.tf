@@ -42,7 +42,6 @@ variable "common_tags" {
 variable "admin_ssh_public_key" {
     description = "SSH key for test linux VM"
     type = string
-    default = "keys/az_terraform_vm_key.pub"
 }
 
 variable "test_secret_value" {}
@@ -59,4 +58,14 @@ variable "vm_size" {
 variable "admin_username" {
     description = "admin usernmae set for vms"
     type = string
+}
+
+variable "name_prefix" {
+    description = "prefix for application gw"
+    type = string
+}
+
+variable "retention_in_days" {
+    description = "assigned rention period for logs"
+    type = number
 }

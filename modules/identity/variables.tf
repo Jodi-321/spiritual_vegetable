@@ -27,3 +27,11 @@ variable "test_secret_value" {
     description = "Initial vaule for teh test key vault secret"
     type = string
 }
+
+variable "key_vault_id" {
+    description = "ID for Key vault"
+    type = string
+}
+
+#key_vault_id = azurerm_key_vault.main.id
+#object_id = azurerm_user_assigned_identity.vm_identity.principal_id

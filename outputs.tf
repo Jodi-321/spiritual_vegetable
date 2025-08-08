@@ -22,3 +22,8 @@ output "asg_ids" {
     description = "Map of application security group names to IDs"
     value = module.networking.asg_ids
 }
+
+output "application_gateway_ip" {
+  description = "Public IP of the Application Gateway"
+  value       = module.security.application_gateway_ip
+}

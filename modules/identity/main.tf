@@ -1,3 +1,4 @@
+/*
 # Key Vault
 resource "azurerm_key_vault" "main" {
     name = "${var.project_name}-${var.environment}-kv"
@@ -20,6 +21,7 @@ resource "azurerm_key_vault" "main" {
     tags = var.common_tags
 }
 
+
 # User-Assigned Managed Identity (UAMI)
 resource "azurerm_user_assigned_identity" "vm_identity" {
     name = "${var.project_name}-${var.environment}-uami"
@@ -28,23 +30,15 @@ resource "azurerm_user_assigned_identity" "vm_identity" {
 
     tags = var.common_tags
 }
+*/
 
-# Granting acces to Key Valut Secrets
-resource "azurerm_key_vault_access_policy" "uami_policy" {
-    key_vault_id = azurerm_key_vault.main.id
-    tenant_id = data.azurerm_client_config.current.tenant_id
-    object_id = azurerm_user_assigned_identity.vm_identity.principal_id
-
-    secret_permissions = [
-        "Get", "List", "Set"
-    ]
-}
-
+# Granting acces to Key Vault Secrets
 
 resource "azurerm_key_vault_secret" "sample_secret" {
-    name = "test-secret1"
+    name = "test-secret2"
     value = var.test_secret_value
-    key_vault_id = azurerm_key_vault.main.id
+    key_vault_id = var.key_vault_id
 
     tags = var.common_tags
+
 }

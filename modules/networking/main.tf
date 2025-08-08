@@ -83,6 +83,51 @@ resource "azurerm_network_security_rule" "public_allow_https" {
     description = "Allow HTTPS inbound from Internet to Application Gateway"
 }
 
+#Rule redirects to 443
+resource "azurerm_network_security_rule" "public_allow_http" { 
+    name = "Allow-Http-From-Internet"
+    priority = 120
+    direction = "Inbound"
+    access = "Allow"
+    protocol = "Tcp"
+    source_port_range = "*"
+    destination_port_range = "80"
+    source_address_prefix = "Internet"
+    destination_address_prefix = "*"
+    resource_group_name = var.resource_group_name
+    network_security_group_name = azurerm_network_security_group.public_subnet.name
+    description = "Allo HTTP inbound from Internet to App GW (Will Redirect to HTTPS)"
+}
+
+resource "azurerm_network_security_rule" "public_allow_appgw_management" {
+    name = "Allow-AppGW-Management"
+    priority = 110
+    direction = "Inbound"
+    access = "Allow"
+    protocol = "Tcp"
+    source_port_range = "*"
+    destination_port_range = "65200-65535"
+    source_address_prefix = "GatewayManager"
+    destination_address_prefix = "*"
+    resource_group_name = var.resource_group_name
+    network_security_group_name = azurerm_network_security_group.public_subnet.name
+    description = "Allow Azure App GW Management traffic"
+}
+
+resource "azurerm_network_security_rule" "public_allow_azure_lb" {
+    name = "Allow-Azure-Loadbalancer"
+    priority = 130
+    direction = "Inbound"
+    access = "Allow"
+    protocol = "Tcp"
+    source_port_range = "*"
+    destination_port_range = "*"
+    source_address_prefix = "AzureLoadBalancer"
+    destination_address_prefix = "*"
+    resource_group_name = var.resource_group_name
+    network_security_group_name = azurerm_network_security_group.public_subnet.name
+    description = "Allow Azure Load Balancer probes"
+}
 resource "azurerm_network_security_rule" "public_deny_all" {
     name = "Deny-All-Inbound"
     priority = 4096
@@ -158,6 +203,21 @@ resource "azurerm_network_security_rule" "private_data_allow_from_api_asg" {
     destination_application_security_group_ids = [azurerm_application_security_group.database_servers.id]
     network_security_group_name = azurerm_network_security_group.private_data_subnet.name
     description = "Allow API ASG to communicate with Database ASG on port 1433"
+}
+
+resource "azurerm_network_security_rule" "private_data_allow_ssh_from_bastion" {
+    name = "Allow-SSH-From-Bastion"
+    priority = 150
+    direction = "Inbound"
+    access = "Allow"
+    protocol = "Tcp"
+    source_address_prefix = "10.0.4.0/27" #Bastion subnet CIDR
+    source_port_range = "*"
+    destination_address_prefix = "*"
+    destination_port_range = "22"
+    resource_group_name = var.resource_group_name
+    network_security_group_name = azurerm_network_security_group.private_data_subnet.name
+    description = "Allow SSH from Bastion subnet to private data VMs"
 }
 
 resource "azurerm_network_security_rule" "private_data_deny_all" {

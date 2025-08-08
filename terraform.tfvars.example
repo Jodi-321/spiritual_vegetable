@@ -1,13 +1,22 @@
-project_name = "zero-trust-mvp"
-environemnt = "mvp"
-location = "East US
-location_short = "eastus
-vnet_address_space = ["10.0.0.0/16]
+project_name = "project_name"
+environment = "environmentName"
+location = "location"
+location_short = "location_short"
+vnet_address_space = ["x.x.x.x/x"]
 
 common_tags = {
-    Project = "Zero-Trust-MVP"
-    Environment = "MVP"
-    Owner = "Jodi"
-    CreatedBy = "Terraform"
+    Project = "Project"
+    Environment = "Environment"
+    Owner = "Owner"
+    CreatedBy = "CreatedBy"
 }
+
+test_secret_value = "test_secret_value"
+
+vm_size = "vm_size"
+admin_username = "admin_user"
+
+name_prefix = "name_prefix"
+
+retention_in_days = retention_in_days
 
